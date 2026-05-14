@@ -6,26 +6,60 @@ public class TaskUpdate {
     private int id;
     private int taskId;
     private int userId;
-    private String userName; // Tên người cập nhật (để hiển thị cho Sếp xem)
+    private String userName;
     private Timestamp updateDate;
     private String note;
 
-    // Các hàm Getter và Setter
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public TaskUpdate() {}
 
-    public int getTaskId() { return taskId; }
-    public void setTaskId(int taskId) { this.taskId = taskId; }
+    public int getId() {
+        return id;
+    }
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+    public int getTaskId() {
+        return 0;
+    }
 
-    public String getUserName() { return userName; }
-    public void setUserName(String userName) { this.userName = userName; }
+    public int getUserId() {
+        return userId;
+    }
 
-    public Timestamp getUpdateDate() { return updateDate; }
-    public void setUpdateDate(Timestamp updateDate) { this.updateDate = updateDate; }
+    public String getUserName() {
+        return userName;
+    }
 
-    public String getNote() { return note; }
-    public void setNote(String note) { this.note = note; }
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setTaskTitle(String taskTitle) {
+    }
 }

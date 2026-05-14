@@ -10,28 +10,24 @@ repositories {
     mavenCentral()
 }
 
-ext {
-    junitVersion = '5.10.2'
-}
-
-sourceCompatibility = '21'
-targetCompatibility = '21'
-
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-}
-
 dependencies {
-    compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    implementation 'mysql:mysql-connector-java:8.0.33'
-    // Thư viện JSTL dành cho Tomcat 10 (Jakarta)
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+
+    providedCompile 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1'
+
+
     implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
     implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
+
+    implementation 'org.mindrot:jbcrypt:0.4'
 }
 
-test {
-    useJUnitPlatform()
+war {
+    archiveFileName = 'fluxhome.war'
 }

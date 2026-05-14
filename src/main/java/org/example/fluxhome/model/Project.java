@@ -9,9 +9,6 @@ public class Project {
     private String location;
     private Timestamp createdAt;
 
-    // --- MỚI THÊM: Biến lưu danh sách tên người tham gia ---
-    private String participantNames;
-
     public Project() {}
 
     public Project(int id, String name, String imageUrl, String location, Timestamp createdAt) {
@@ -22,28 +19,43 @@ public class Project {
         this.createdAt = createdAt;
     }
 
-    // Các hàm Getters và Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
-
-    public String getLocation() { return location; }
-    public void setLocation(String location) { this.location = location; }
-
-    public Timestamp getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
-
-    // --- MỚI THÊM: Getters và Setters cho participantNames ---
-    public String getParticipantNames() {
-        return participantNames;
+    public int getId() {
+        return id;
     }
 
-    public void setParticipantNames(String participantNames) {
-        this.participantNames = participantNames;
+    public String getName() {
+        return name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
     }
 }
