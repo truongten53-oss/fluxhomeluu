@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/employee/dashboard")
+@WebServlet("/employee/tasks")
 public class EmployeeDashboardServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAO();
 
@@ -24,7 +24,7 @@ public class EmployeeDashboardServlet extends HttpServlet {
         try {
             List<Task> tasks = taskDAO.getTasksByUserId(user.getId());
             req.setAttribute("tasks", tasks);
-            req.getRequestDispatcher("/WEB-INF/views/employee/dashboard.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/views/employee/tasks.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
             resp.sendError(500);

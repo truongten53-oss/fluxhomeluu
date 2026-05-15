@@ -16,7 +16,7 @@
 <div class="register-box">
   <h2>Đăng ký</h2>
   <c:if test="${not empty error}"><div class="error">${error}</div></c:if>
-  <form action="${pageContext.request.contextPath}/register" method="POST" enctype="multipart/form-data">
+  <form action="${pageContext.request.contextPath}/register" method="POST">
     <input type="text" name="full_name" placeholder="Họ và tên" required>
     <input type="text" name="username" placeholder="Tên đăng nhập" required>
     <input type="password" name="password" placeholder="Mật khẩu" required>
@@ -24,7 +24,6 @@
       <option value="employee">Nhân viên</option>
       <option value="admin">Quản trị viên</option>
     </select>
-    <input type="file" name="avatar" accept="image/*">
     <button type="submit">Đăng ký</button>
   </form>
   <p>Đã có tài khoản? <a href="${pageContext.request.contextPath}/login">Đăng nhập</a></p>

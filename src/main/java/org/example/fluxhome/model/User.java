@@ -3,20 +3,20 @@ package org.example.fluxhome.model;
 public class User {
     private int id;
     private String fullName;
-    private String userName;
+    private String username;
     private String passwordHash;
     private String role;
-    private String avatar;
+
 
     public User() {}
 
-    public User(int id, String fullName, String username, String passwordHash, String role, String avatar) {
+    public User(int id, String fullName, String username, String passwordHash, String role ) {
         this.id = id;
         this.fullName = fullName;
-        this.userName = username;
+        this.username = username;
         this.passwordHash = passwordHash;
         this.role = role;
-        this.avatar = avatar;
+
     }
 
     public int getId() {
@@ -27,8 +27,8 @@ public class User {
         return fullName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getPasswordHash() {
@@ -39,9 +39,6 @@ public class User {
         return role;
     }
 
-    public String getAvatar() {
-        return avatar;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -51,8 +48,8 @@ public class User {
         this.fullName = fullName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPasswordHash(String passwordHash) {
@@ -63,7 +60,4 @@ public class User {
         this.role = role;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 }

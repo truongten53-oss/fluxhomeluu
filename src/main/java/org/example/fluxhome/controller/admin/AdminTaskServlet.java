@@ -19,6 +19,7 @@ public class AdminTaskServlet extends HttpServlet {
     private ProjectDAO projectDAO = new ProjectDAO();
     private UserDAO userDAO = new UserDAO();
 
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         if ("delete".equals(action)) {
@@ -43,28 +44,29 @@ public class AdminTaskServlet extends HttpServlet {
         }
     }
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String projectIdStr = req.getParameter("projectId");
         String title = req.getParameter("title");
         String assigneeIdStr = req.getParameter("assigneeId");
         String notes = req.getParameter("notes");
         if (projectIdStr == null || title == null || title.trim().isEmpty()) {
-            // lỗi
             resp.sendRedirect(req.getContextPath() + "/admin/tasks");
             return;
         }
         Task task = new Task();
         task.setProjectId(Integer.parseInt(projectIdStr));
         task.setTitle(title);
-        if (assigneeIdStr != null && !assigneeIdStr.isEmpty())
+        if (assigneeIdStr != null && !assigneeIdStr.isEmpty()) {
             task.setAssigneeId(Integer.parseInt(assigneeIdStr));
+        }
         task.setNotes(notes);
+        task.setStatus("pending");  // MẶC ĐỊNH TRẠNG THÁI LÀ "CHỜ"
         try {
             taskDAO.addTask(task);
-            resp.sendRedirect(req.getContextPath() + "/admin/tasks");
         } catch (SQLException e) {
             e.printStackTrace();
-            resp.sendError(500);
         }
+        resp.sendRedirect(req.getContextPath() + "/admin/tasks");
     }
 }

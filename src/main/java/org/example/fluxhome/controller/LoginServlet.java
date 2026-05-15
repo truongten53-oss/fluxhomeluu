@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
                 if ("admin".equals(user.getRole())) {
                     resp.sendRedirect(req.getContextPath() + "/admin/dashboard");
                 } else {
-                    resp.sendRedirect(req.getContextPath() + "/employee/dashboard");
+                    resp.sendRedirect(req.getContextPath() + "/employee/tasks");
                 }
             } else {
                 req.setAttribute("error", "Sai tên đăng nhập hoặc mật khẩu!");

@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-@WebServlet("/employee/update-task")
+@WebServlet("/employee/update-task")  // ĐẢM BẢO URL NÀY ĐÚNG
 public class EmployeeUpdateTaskServlet extends HttpServlet {
     private TaskDAO taskDAO = new TaskDAO();
     private TaskUpdateDAO taskUpdateDAO = new TaskUpdateDAO();
@@ -28,10 +28,7 @@ public class EmployeeUpdateTaskServlet extends HttpServlet {
         User user = (User) session.getAttribute("user");
 
         try {
-            // 1. Cập nhật trạng thái task
             taskDAO.updateTaskStatus(taskId, newStatus);
-
-            // 2. Lưu ghi chú vào bảng task_updates (nếu có)
             if (note != null && !note.trim().isEmpty()) {
                 TaskUpdate update = new TaskUpdate();
                 update.setTaskId(taskId);
@@ -40,12 +37,11 @@ public class EmployeeUpdateTaskServlet extends HttpServlet {
                 update.setNote(note);
                 taskUpdateDAO.addTaskUpdate(update);
             }
-
-            // 3. Quay lại danh sách task
-            resp.sendRedirect(req.getContextPath() + "/tasks");
+            // SỬA: redirect về /employee/tasks (không phải /tasks)
+            resp.sendRedirect(req.getContextPath() + "/employee/tasks");
         } catch (SQLException e) {
             e.printStackTrace();
-            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi cập nhật task");
+            resp.sendError(500);
         }
     }
 }

@@ -8,6 +8,8 @@ public class Project {
     private String imageUrl;
     private String location;
     private Timestamp createdAt;
+    private String participantNames;
+    private String status;   // THÊM DÒNG NÀY
 
     public Project() {}
 
@@ -19,43 +21,26 @@ public class Project {
         this.createdAt = createdAt;
     }
 
-    public int getId() {
-        return id;
-    }
+    // Getters & Setters (cũ + mới)
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+    public String getImageUrl() { return imageUrl; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 
-    public String getLocation() {
-        return location;
-    }
+    public String getLocation() { return location; }
+    public void setLocation(String location) { this.location = location; }
 
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
+    public Timestamp getCreatedAt() { return createdAt; }
+    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getParticipantNames() { return participantNames; }
+    public void setParticipantNames(String participantNames) { this.participantNames = participantNames; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
-    }
+    // Getter/Setter mới cho status
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }
