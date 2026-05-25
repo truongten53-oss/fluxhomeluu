@@ -98,4 +98,19 @@ public class TaskDAO {
     }
 
 
+    // Trong TaskDAO.java
+    public int getProjectIdByTaskId(int taskId) throws SQLException {
+        String sql = "SELECT project_id FROM tasks WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, taskId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("project_id");
+            }
+            return -1;
+        }
+    }
+
+
 }

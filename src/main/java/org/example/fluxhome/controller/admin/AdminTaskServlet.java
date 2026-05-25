@@ -61,9 +61,10 @@ public class AdminTaskServlet extends HttpServlet {
             task.setAssigneeId(Integer.parseInt(assigneeIdStr));
         }
         task.setNotes(notes);
-        task.setStatus("pending");  // MẶC ĐỊNH TRẠNG THÁI LÀ "CHỜ"
+        task.setStatus("pending");
         try {
             taskDAO.addTask(task);
+            projectDAO.updateProjectStatusBasedOnTasks(Integer.parseInt(projectIdStr));
         } catch (SQLException e) {
             e.printStackTrace();
         }

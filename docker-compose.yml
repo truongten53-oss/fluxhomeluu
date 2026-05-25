@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  web-app:
+    build: .
+    container_name: fluxhome_web
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      DB_HOST: gateway01.ap-southeast-1.prod.alicloud.tidbcloud.com
+      DB_PORT: 4000
+      DB_NAME: intech_design
+      DB_USER: 3feMxsj9FkZujJ.B.root
+      DB_PASSWORD: wudl0s8qas5blkPg
+    networks:
+      - fluxhome_net
+
+networks:
+  fluxhome_net:

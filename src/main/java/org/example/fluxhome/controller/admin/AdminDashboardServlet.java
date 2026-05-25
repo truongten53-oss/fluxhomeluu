@@ -21,23 +21,22 @@ public class AdminDashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            // Lấy danh sách dự án kèm người phụ trách và status
             List<Project> activeProjects = projectDAO.getProjectsWithAssigneesAndStatus();
 
             int totalProjects = projectDAO.getAllProjects().size();
             int totalUsers = userDAO.getAllUsers().size();
 
-            // Đếm số dự án theo trạng thái (tùy bạn có thể dùng thống kê khác)
             long inProgressCount = activeProjects.stream().filter(p -> "in_progress".equals(p.getStatus())).count();
             long pendingCount = activeProjects.stream().filter(p -> "pending".equals(p.getStatus())).count();
+            long completedCount = activeProjects.stream().filter(p -> "completed".equals(p.getStatus())).count(); // THÊM DÒNG NÀY
 
             req.setAttribute("totalProjects", totalProjects);
             req.setAttribute("totalUsers", totalUsers);
             req.setAttribute("inProgressProjectsCount", inProgressCount);
             req.setAttribute("pendingTasksCount", pendingCount);
+            req.setAttribute("completedProjectsCount", completedCount);
             req.setAttribute("activeProjects", activeProjects);
 
-            // Lời chào theo giờ
             int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
             String greeting = (hour < 12) ? "sáng" : (hour < 18) ? "chiều" : "tối";
             req.setAttribute("greeting", greeting);

@@ -74,35 +74,6 @@ public class UserDAO {
         return list;
     }
 
-    // Thêm vào UserDAO
-    public User getUserById(int id) throws SQLException {
-        String sql = "SELECT id, full_name, username, role FROM users WHERE id=?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                User u = new User();
-                u.setId(rs.getInt("id"));
-                u.setFullName(rs.getString("full_name"));
-                u.setUsername(rs.getString("username"));
-                u.setRole(rs.getString("role"));
-                return u;
-            }
-        }
-        return null;
-    }
-
-    public boolean updatePassword(int userId, String newHashedPassword) throws SQLException {
-        String sql = "UPDATE users SET password_hash = ? WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, newHashedPassword);
-            ps.setInt(2, userId);
-            return ps.executeUpdate() > 0;
-        }
-    }
-
     public boolean deleteUser(int userId) throws SQLException {
         String sql = "DELETE FROM users WHERE id=?";
         try (Connection conn = DBConnection.getConnection();

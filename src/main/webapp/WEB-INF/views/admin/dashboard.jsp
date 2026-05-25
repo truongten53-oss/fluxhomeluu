@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -183,7 +184,6 @@
       <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/projects" class="nav-link"><i class="fas fa-folder-open"></i><span>Dự án đang chạy</span></a></li>
       <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/tasks" class="nav-link"><i class="fas fa-tasks"></i><span>Công việc</span></a></li>
       <li class="nav-item"><a href="${pageContext.request.contextPath}/admin/users" class="nav-link"><i class="fas fa-users"></i><span>Đội ngũ nhân sự</span></a></li>
-
     </ul>
   </aside>
 
@@ -207,6 +207,7 @@
       <div class="stat-card"><div class="stat-icon"><i class="fas fa-chart-line"></i></div><div class="stat-title">Đang tiến hành</div><div class="stat-value">${inProgressProjectsCount}</div></div>
       <div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><div class="stat-title">Đang chờ duyệt</div><div class="stat-value">${pendingTasksCount}</div></div>
       <div class="stat-card"><div class="stat-icon"><i class="fas fa-user-friends"></i></div><div class="stat-title">Thành viên</div><div class="stat-value">${totalUsers}</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div class="stat-title">Hoàn thành</div><div class="stat-value">${completedProjectsCount}</div></div>
     </div>
 
     <div class="full-width-card">
@@ -236,13 +237,9 @@
                         <span>Chưa có</span>
                       </c:when>
                       <c:otherwise>
-                        <%
-                          String staff = (String) pageContext.getAttribute("staffNames");
-                          int count = staff.split(",").length;
-                          pageContext.setAttribute("staffCount", count);
-                        %>
+                        <c:set var="staffArray" value="${fn:split(staffNames, ',')}" />
                         <button type="button" class="view-staff-btn" onclick="showStaffModal('${proj.name}', '${proj.participantNames}')">
-                          Xem (${staffCount})
+                          Xem (${fn:length(staffArray)})
                         </button>
                       </c:otherwise>
                     </c:choose>

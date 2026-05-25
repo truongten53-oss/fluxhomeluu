@@ -67,8 +67,6 @@ public class ProjectDAO {
         return null;
     }
 
-    // Lấy danh sách dự án kèm danh sách người phụ trách (từ tasks.assignee) và tiến độ tính từ tasks
-    // Lấy danh sách dự án kèm danh sách người phụ trách (từ tasks.assignee) và status
     public List<Project> getProjectsWithAssigneesAndStatus() throws SQLException {
         List<Project> list = new ArrayList<>();
         String sql = "SELECT p.id, p.name, p.location, p.image_url, p.created_at, p.status, " +
@@ -97,7 +95,6 @@ public class ProjectDAO {
         return list;
     }
 
-    // Thêm phương thức cập nhật trạng thái dự án
     public boolean updateProjectStatus(int projectId, String status) throws SQLException {
         String sql = "UPDATE projects SET status = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
@@ -105,6 +102,36 @@ public class ProjectDAO {
             ps.setString(1, status);
             ps.setInt(2, projectId);
             return ps.executeUpdate() > 0;
+        }
+    }
+
+    // === SỬA LOGIC CHUẨN ===
+    public void updateProjectStatusBasedOnTasks(int projectId) throws SQLException {
+        String sql = "SELECT COUNT(*) as total, " +
+                "SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) as completed_count, " +
+                "SUM(CASE WHEN status = 'pending' THEN 1 ELSE 0 END) as pending_count " +
+                "FROM tasks WHERE project_id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, projectId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                int total = rs.getInt("total");
+                int completed = rs.getInt("completed_count");
+                int pending = rs.getInt("pending_count");
+                String newStatus;
+                if (total == 0 || pending == total) {
+                    // Không có task hoặc tất cả đang pending -> dự án chờ duyệt
+                    newStatus = "pending";
+                } else if (completed == total) {
+                    // Tất cả đã hoàn thành
+                    newStatus = "completed";
+                } else {
+                    // Còn lại: có ít nhất 1 task in_progress hoặc hỗn hợp (pending + completed)
+                    newStatus = "in_progress";
+                }
+                updateProjectStatus(projectId, newStatus);
+            }
         }
     }
 }
