@@ -11,7 +11,7 @@ import java.nio.file.Files;
 
 @WebServlet("/images/*")
 public class ImageServlet extends HttpServlet {
-    private static final String UPLOAD_DIR = "D:\\fluxhome_uploads";
+    private static final String UPLOAD_DIR = System.getenv().getOrDefault("UPLOAD_DIR", "/app/uploads");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

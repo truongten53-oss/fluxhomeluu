@@ -13,6 +13,9 @@ services:
       DB_NAME: intech_design
       DB_USER: 3feMxsj9FkZujJ.B.root
       DB_PASSWORD: wudl0s8qas5blkPg
+      UPLOAD_DIR: /app/uploads         # ← thêm biến môi trường cho container
+    volumes:
+      - ./uploads:/app/uploads         # ← mount thư mục local để lưu ảnh vĩnh viễn
     networks:
       - fluxhome_net
 

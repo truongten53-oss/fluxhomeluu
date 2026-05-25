@@ -16,7 +16,7 @@ import java.util.List;
 @MultipartConfig(maxFileSize = 10 * 1024 * 1024)
 public class AdminProjectServlet extends HttpServlet {
     private ProjectDAO projectDAO = new ProjectDAO();
-    private static final String UPLOAD_DIR = "D:\\fluxhome_uploads";
+    private static final String UPLOAD_DIR = System.getenv().getOrDefault("UPLOAD_DIR", "/app/uploads");
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -49,8 +49,11 @@ public class AdminProjectServlet extends HttpServlet {
             String fileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
             String unique = System.currentTimeMillis() + "_" + fileName;
             File uploadDir = new File(UPLOAD_DIR);
-            if (!uploadDir.exists()) uploadDir.mkdirs();
-            imagePart.write(UPLOAD_DIR + File.separator + unique);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+            File destination = new File(uploadDir, unique);
+            imagePart.write(destination.getAbsolutePath());
             imageUrl = unique;
         }
         Project p = new Project();
